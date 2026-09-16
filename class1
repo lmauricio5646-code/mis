@@ -1,0 +1,40 @@
+## EXAMPLE 1: STUDENT TABLE
+CREATE TABLE IF NOT EXISTS Students( #creates table "Students" if it doesn't already exist
+    StudentID INT,
+    Name VARCHAR(100), #VARCHAR used for unknown length of char
+    Address VARCHAR(100),
+    Units_Taken INT,
+    BirthDate DATE,
+    PRIMARY KEY (StudentID) #always put primary key at the end
+);
+
+## EXAMPLE 2: SUPPLIER TABLE
+CREATE TABLE Suppliers(
+    SupplierID INT AUTO_INCREMENT, #will automatically track the numbers for us; same as i++
+    Name VARCHAR(50),
+    Industry VARCHAR(50),
+    Email VARCHAR(50),
+    PRIMARY KEY(SupplierID)
+);
+
+## EXAMPLE 3: AIRPORT TABLE
+CREATE TABLE IF NOT EXISTS Airports(
+    AirportID INT AUTO_INCREMENT,
+    AirportName VARCHAR(100),
+    Latitude FLOAT,
+    Longitude FLOAT,
+    PRIMARY KEY (AirportID)        
+);
+
+## EXAMPLE 4: INSERTING DATA VALUES
+#Long way
+INSERT INTO Airports(AirportID, AirportName, Latitude, Longitude)
+VALUES (1, "San Diego International Airport", 32.7338, -117.1933);
+
+#Shortcut 1: auto-increment
+	#INSERT INTO Airports(AirportID, AirportName, Latitude, Longitude)
+	#VALUES ("San Diego International Airport", 32.7338, -117.1933);
+    
+#Shortcut 2: don't specify fields
+	#INSERT INTO Airports
+	#VALUES (1, "San Diego International Airport", 32.7338, -117.1933);
