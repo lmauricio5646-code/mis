@@ -1,0 +1,42 @@
+## EXAMPLE ONE: create a table for movies, then alter one of the columns
+CREATE TABLE Movies(
+                    Title VARCHAR(100)
+                    DateOfRelease DATE,
+                    Length INT,
+                    Genre VARCHAR(50),
+                    PRIMARY KEY(Title, DateOfRelease)
+                    );
+
+INSERT INTO Movies(Title, DateOfRelease, Length, Genre)
+VALUES("La La Land", "2016",128, "Musical");
+
+ALTER TABLE Movies
+ADD Director VARCHAR(100);#will add a "Director" column
+
+##EXAMPLE TWO: Create a table for Jobs with non-null job title. If no name, it is assumed to be operations
+CREATE TABLE Jobs(
+                 JobID INT AUTO_INCREMENT,
+                 Title VARCHAR(100) NOT NULL, #must have a title
+                 Department VARCHAR(50) DEFAULT "Operations",
+                 Salary FLOAT,
+                 PRIMARY KEY (JobID)
+                 );
+INSERT INTO Jobs (Title, Salary) #dont have to type in departments or jobid; am accepting the default values
+Values("Operations Manager", 50000);
+
+##EXAMPLE THREE: database tables with referential integrity
+CREATE TABLE Manufacturers(
+                           ManufracturerID INT AUTO_INCREMENT,
+                           Name VARCHAR(100),
+                           Phone INT,
+                           Address VARCHAR(100)
+                           PRIMARY KEY(ManufacturerID)
+                           );
+CREATE TABLE Products(
+                      ProductID INT AUTO_INCREMENT,
+                      Name VARCHAR(100),
+                      Size FLOAT,
+                      Price FLOAT,
+                      ManufacturerID INT,
+                      PRIMARY KEY(ProductID),
+                      FOREIGN KEY(ManufacturerID) REFERENCES Manufacturers(ManufacturerID) 
