@@ -1,0 +1,69 @@
+CLASS 3: SUBQUERIES, VIEWS, UPDATING/DELETING
+
+## SUBQUERIES
+##example 1: find supplier name that follows ASP pattern, aka "a soup place"
+SELECT Description, Price FROM Foods WHERE Supplier_ID =
+  (SELECT Supplier_ID FROM Suppliers WHERE Supplier_Name = "A Soup Place");
+## OR YOU CAN DO THIS ONE
+SELECT Description, Price FROM Foods WHERE Supplier_ID = "ASP";
+SELECT Supplier_ID FROM Suppliers WHERE Supplier_Name = "A Soup Place";
+
+## EXAMPLE 2: using IN to find foods whose suppliers' start with F
+SELECT Description, Price FROM Foods WHERE Supplier_ID IN 
+  (Select Supplier_ID FROM Suppliers WHERE Supplier_Name LIKE "F%");
+
+##EXAMPLE 3: select items that are "above average"
+SELECT AVG(Price) #instantiating the average as a value of reference
+From Foods; #which table we are selecting from 
+## can do it this way
+SELECT Description, Price
+FROM Foods
+WHERE Price > 2.31;
+
+SELECT AVG(Price)
+From Foods;
+
+## or this way
+SELECT Description, Price
+FROM Foods
+WHERE Price > 
+
+  (SELECT AVG(Price)
+  From Foods;) #the parentheses tell the computer to do this part first, then the top
+
+## VIEWS
+definition: virtual table constructed from other tables; a saved selected query
+## EXAMPLE 1: create a view to save the average credit limit across employees
+CREATE VIEW Avg_Credit AS          
+SELECT AVG(Credit_Limit) AS Average_Credit_Limit #rename column
+From Employees;
+
+# if working in the view, you can use * to reference the view to select from it, you can't insert any rows into it
+SELECT First_Name, Last_Name, Credit_Limit
+FROM Employees
+WHERE Credit_Limit >
+  (SELECT *
+  FROM avg_credit;)
+
+
+## UPDATING/CHANGING EXISTING RECORDS
+UPDATE Employees
+SET Salary = 50000, Bonus = 1000 #comma-seperated list of fields to change and new values to set
+WHERE Employee_ID = 2; #choice of which record(s) to update
+
+## can also update a value based on the current value in the table
+UPDATE Employees
+SET Salary = Salary + 5000
+WHERE Employee_ID = 2;
+
+##EXAMPLE ONE: updating department code and credit limit for employee whose last name is kern for a promotion
+UPDATE Employees
+SET Dept_Code = "Exe", Credit_Limit = 30
+WHERE Last_Name = "Kern";
+
+## DELETING RECORDS
+DELETE FROM Employees
+WHERE Employee_ID = 2; #deletes only employee 2
+					
+DELETE FROM Employees; #deletes ALL employees
+					
